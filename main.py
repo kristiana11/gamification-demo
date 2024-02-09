@@ -2,6 +2,7 @@ import requests
 
 
 def check_pull_requests(repo_owner, repo_name):
+    print("checking pull requests")
     url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/pulls"
     response = requests.get(url)
     if response.status_code == 200:
