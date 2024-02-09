@@ -1,9 +1,5 @@
-name: Pull Request Checker
-on:
-  pull_request:
-    types:
-      - opened
-      - synchronize
+name: Commit Request Checker
+on: [commit]
 
 jobs:
   check_pull_requests:
@@ -23,7 +19,7 @@ jobs:
         python-version: 3.x
 
     - name: Install dependencies
-      run: pip install requests
+      run: pip pip install -r bots/requirements.txt
 
     - name: Run pull request checker
-      run: python PRChecker.py
+      run: python bots/PRChecker.py ${{ github.repository_owner }} ${{ github.repository }} ${GITHUB_REF#refs/heads/}}
