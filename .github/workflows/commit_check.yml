@@ -19,7 +19,7 @@ jobs:
         python-version: 3.x
 
     - name: Install dependencies
-      run: pip pip install -r bots/requirements.txt
+      run: pip install -r bots/requirements.txt
 
     - name: Run pull request checker
       run: python bots/PRChecker.py ${{ github.repository_owner }} ${{ github.repository }} ${GITHUB_REF#refs/heads/}}
