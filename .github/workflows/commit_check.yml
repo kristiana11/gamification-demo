@@ -1,5 +1,5 @@
 name: Commit Request Checker
-on: [commit]
+on: [push]
 
 jobs:
   check_pull_requests:
