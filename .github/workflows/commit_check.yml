@@ -22,4 +22,4 @@ jobs:
       run: pip install -r bots/requirements.txt
 
     - name: Run pull request checker
-      run: python bots/CommitChecker.py ${{ github.repository_owner }} ${{ github.repository }} ${{GITHUB_REF#refs/heads/}}
+      run: python bots/CommitChecker.py ${{ github.repository_owner }} ${{ github.repository }} ${{ github.ref_name }}
