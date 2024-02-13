@@ -13,7 +13,7 @@ def check_pull_requests(repo_owner, repo_name):
         print("Failed to fetch pull requests")
 
 
-if __name__ == '__PRChecker__':
+if __name__ == '__main__':
     repository_owner = "caiton1"
     repository_name = "gamification-demo"
     check_pull_requests(repository_owner, repository_name)

@@ -21,5 +21,5 @@ jobs:
     - name: Install dependencies
       run: pip install -r bots/requirements.txt
 
-    - name: Run pull request checker
+    - name: Run pull commit checker
       run: python bots/CommitChecker.py ${{ github.repository_owner }} ${{ github.repository }} ${{ github.ref_name }}
