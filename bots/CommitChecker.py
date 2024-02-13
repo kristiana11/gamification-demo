@@ -17,15 +17,17 @@ def check_commits(owner, name, branch):
         if owner in commit_authors:
             print(f"The user {owner} has committed to the branch {branch}.")
             try:
+                # TODO: output results into a specific output folder
                 with open(f"{owner}Data.txt", "r+") as save_data:
-                    save_dict = dict(save_data)
+                    save_dict = json.load(save_data)
                     print(save_dict)
+                    if not save_dict['commit']['completed']:
+                        save_dict['user_data']['xp'] += 10
                     save_dict['commit'] = {
                         'completed': True,
                         'points': 10  # may want to do a entry that tracks total points for later
                     }
-                    save_dict['user_data']['xp'] += 10
-
+                    save_data.seek(0)  # want to overwrite contents, not append
                     json.dump(save_dict, save_data)
             except FileNotFoundError:
                 with open(f"{owner}Data.txt", "w") as save_data:

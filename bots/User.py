@@ -8,7 +8,7 @@ class User:
     def load_user(self, user):
         try:
             with open(f"{user}Data.txt", "r") as user_data:
-                self.data = json.load(user_file)
+                self.data = json.load(user_data)
         except FileNotFoundError:
             print("No user data found.")
 
