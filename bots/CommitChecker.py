@@ -61,7 +61,7 @@ if __name__ == '__main__':
     collection = database['user_data']
     query = {"caiton1": {"$exists": True}}
     cursor = collection.find(query)
-
-    print(cursor)
+    for document in cursor:
+        print(document)
 
     check_commits(repo_owner, repo_name, repo_branch)
