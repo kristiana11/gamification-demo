@@ -59,6 +59,9 @@ if __name__ == '__main__':
     print(client)
     database = client['gamification']
     collection = database['user_data']
-    print(collection)
+    query = {"caiton1": {"$exists": True}}
+    cursor = collection.find(query)
+
+    print(cursor)
 
     check_commits(repo_owner, repo_name, repo_branch)
