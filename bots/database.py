@@ -20,7 +20,7 @@ class MongoDB:
         try:
             self.collection.insert_one(user_data)
         except errors.DuplicateKeyError:
-            self.collection.replace_one({'_id': user_data['_id']}, user_data, upsert=True)
+            print("too bad ):")
 
     def read_user_data(self, user_data):
         user_document = self.collection.find_one({'_id': user_data['_id']})
