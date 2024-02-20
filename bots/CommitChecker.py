@@ -1,12 +1,11 @@
 import requests
 from sys import argv
-import json
-from pymongo import MongoClient
-import os
+from database import MongoDB
 
 def check_commits(owner, name, branch):
     print("checking commits:")
     url = f"https://api.github.com/repos/{name}/commits?sha={branch}"
+
     response = requests.get(url)
     if response.status_code == 200:
         commits = response.json()
@@ -17,31 +16,19 @@ def check_commits(owner, name, branch):
         # check if the user has committed to the branch
         if owner in commit_authors:
             print(f"The user {owner} has committed to the branch {branch}.")
-            try:
-                # TODO: output results into a specific output folder
-                with open(f"{owner}Data.txt", "r+") as save_data:
-                    save_dict = json.load(save_data)
-                    print(save_dict)
-                    if not save_dict['commit']['completed']:
-                        save_dict['user_data']['xp'] += 10
-                    save_dict['commit'] = {
-                        'completed': True,
-                        'points': 10  # may want to do a entry that tracks total points for later
-                    }
-                    save_data.seek(0)  # want to overwrite contents, not append
-                    json.dump(save_dict, save_data)
-            except FileNotFoundError:
-                with open(f"{owner}Data.txt", "w") as save_data:
-                    save_dict = dict()
-                    save_dict['commit'] = {
-                        'completed': True,
-                        'points': 10  # may want to do a entry that tracks total points for later
-                    }
-                    save_dict['user_data'] = {
-                        'xp': 10
-                    }
-                    json.dump(save_dict, save_data)
-
+            save_dict = dict()
+            save_dict['_id'] = owner
+            save_dict['commit'] = {
+                'completed': True,
+                'points': 10  # may want to do a entry that tracks total points for later
+            }
+            save_dict['user_data'] = {
+                'xp': 10
+            }
+            db = MongoDB()
+            db.dump_user_data(save_dict)
+            user_data = db.read_user_data(save_dict)
+            db.close_connection()
         else:
             print(f"The user {owner} has not committed to the branch {branch}.")
     else:
@@ -52,35 +39,5 @@ if __name__ == '__main__':
     repo_owner = argv[1]
     repo_name = argv[2]
     repo_branch = argv[3]
-
-    uri = os.environ['MONGODB_URI']
-    client = MongoClient()
-    client = MongoClient(uri)
-    db = client['gamification']
-    collection = db['user_data']
-
-    query = {"caiton1.commit.completed": True}  # Query to find documents where "caiton1.commit.completed" is true
-    result = collection.find_one(query)
-
-    if result:
-        # Accessing nested data
-        caiton1_data = result.get("caiton1")
-        if caiton1_data:
-            commit_data = caiton1_data.get("commit")
-            user_data = caiton1_data.get("user_data")
-            if commit_data:
-                completed = commit_data.get("completed")
-                points = commit_data.get("points")
-            if user_data:
-                xp = user_data.get("xp")
-
-            # Printing the retrieved values
-            print("Completed:", completed)
-            print("Points:", points)
-            print("XP:", xp)
-    else:
-        print("No matching document found.")
-
-    client.close
 
     check_commits(repo_owner, repo_name, repo_branch)
