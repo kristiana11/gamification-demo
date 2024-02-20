@@ -56,13 +56,30 @@ if __name__ == '__main__':
     uri = os.environ['MONGODB_URI']
     client = MongoClient()
     client = MongoClient(uri)
-    print(client)
-    database = client['gamification']
-    collection = database['user_data']
-    query = {"caiton1": {"$exists": True}}
-    cursor = collection.find(query)
-    for doc in cursor:
-        print(doc)
+    db = client['gamification']
+    collection = db['user_data']
+
+    query = {"caiton1.commit.completed": True}  # Query to find documents where "caiton1.commit.completed" is true
+    result = collection.find_one(query)
+
+    if result:
+        # Accessing nested data
+        caiton1_data = result.get("caiton1")
+        if caiton1_data:
+            commit_data = caiton1_data.get("commit")
+            user_data = caiton1_data.get("user_data")
+            if commit_data:
+                completed = commit_data.get("completed")
+                points = commit_data.get("points")
+            if user_data:
+                xp = user_data.get("xp")
+
+            # Printing the retrieved values
+            print("Completed:", completed)
+            print("Points:", points)
+            print("XP:", xp)
+    else:
+        print("No matching document found.")
 
     client.close
 
