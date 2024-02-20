@@ -1,7 +1,8 @@
 import requests
 from sys import argv
 import json
-
+from pymongo import MongoClient
+import os
 
 def check_commits(owner, name, branch):
     print("checking commits:")
@@ -51,5 +52,13 @@ if __name__ == '__main__':
     repo_owner = argv[1]
     repo_name = argv[2]
     repo_branch = argv[3]
+
+    uri = os.environ['MONGODB_URI']
+    client = MongoClient()
+    client = MongoClient(uri)
+    print(client)
+    database = client['gamification']
+    collection = database['user_data']
+    print(collection)
 
     check_commits(repo_owner, repo_name, repo_branch)
