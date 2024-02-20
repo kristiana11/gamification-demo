@@ -61,7 +61,8 @@ if __name__ == '__main__':
     collection = database['user_data']
     query = {"caiton1": {"$exists": True}}
     cursor = collection.find(query)
-    for document in cursor:
-        print(document)
+    print(cursor)
+
+    client.close
 
     check_commits(repo_owner, repo_name, repo_branch)
