@@ -3,7 +3,6 @@ on:
   pull_request:
     types:
       - opened
-      - synchronize
 
 jobs:
   check_pull_requests:
@@ -26,4 +25,4 @@ jobs:
       run: pip install requests
 
     - name: Run pull request checker
-      run: python main.py
+      run: python bots/PRChecker.py
