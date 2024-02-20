@@ -61,7 +61,8 @@ if __name__ == '__main__':
     collection = database['user_data']
     query = {"caiton1": {"$exists": True}}
     cursor = collection.find(query)
-    print(cursor)
+    for doc in cursor:
+        print(doc)
 
     client.close
 
