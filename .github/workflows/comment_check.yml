@@ -8,8 +8,9 @@ jobs:
   comment:
     # This job only runs for issue comments
     name: comment detection
-    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/build' }}
     runs-on: ubuntu-latest
+    if: contains(github.event.comment.body, '/test')
     steps:
       - run: |
           echo "/test command issued"
+
