@@ -1,15 +1,15 @@
+name:
+
 on:
   issue_comment:
     types: [created, edited, deleted]
 
 jobs:
-  issue_commented:
+  comment:
     # This job only runs for issue comments
-    name: Issue comment
+    name: comment detection
     if: contains(github.event.comment.html_url, '/test')
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo /test command issued on issue $NUMBER
-        env:
-          NUMBER: ${{ github.event.issue.number }}
+          echo /test command issued
