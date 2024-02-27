@@ -8,8 +8,9 @@ jobs:
   comment:
     # This job only runs for issue comments
     name: comment detection
-    if: contains(github.event.comment.html_url, '/test')
     runs-on: ubuntu-latest
+      - run: echo hello world
+    if: contains(github.event.comment.html_url, '/test')
     steps:
       - run: |
           echo /test command issued
