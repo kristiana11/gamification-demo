@@ -1,19 +1,16 @@
-name: comment_command
+name:
 
 on:
-  issues:
-    types: [opened]
+  issue_comment:
+    types: [created, edited, deleted]
 
 jobs:
   comment:
+    # This job only runs for issue comments
+    name: comment detection
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '👋 Thanks for reporting!'
-            })
+      - run: echo "hello world"
+      if: ${{ github.event.issue.pull_request && github.event.comment.body == '/build' }}
+      steps:
+        - run: |
+            echo "/test command issued"
