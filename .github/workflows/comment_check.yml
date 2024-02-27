@@ -10,7 +10,7 @@ jobs:
     name: comment detection
     runs-on: ubuntu-latest
       - run: echo hello world
-      if: contains(github.event.comment.html_url, '/test')
+      if: ${{ github.event.issue.pull_request && github.event.comment.body == '/build' }}
       steps:
         - run: |
             echo /test command issued
