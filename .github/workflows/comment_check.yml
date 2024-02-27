@@ -10,6 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          /test command issued on issue $NUMBER
+          echo /test command issued on issue $NUMBER
         env:
           NUMBER: ${{ github.event.issue.number }}
