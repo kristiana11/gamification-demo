@@ -9,7 +9,7 @@ db = MongoDB()
 
 # accept quest
 def accept_quest(user, quest):
-    with open("AvailableQuests.json") as file:
+    with open("bots/ableQuests.json") as file:
         quests = json.load(file)
     user_data = db.download_user_data(user)
     if quest in quests:
@@ -22,7 +22,7 @@ def accept_quest(user, quest):
 
 
 def is_quest_accepted(user, quest):
-    with open("AvailableQuests.json") as file:
+    with open("bots/AvailableQuests.json") as file:
         quests = json.load(file)
     if quest in quests:
         user_data = db.download_user_data(user)
@@ -34,7 +34,7 @@ def is_quest_accepted(user, quest):
 
 # remove quest
 def remove_quest(user, quest):
-    with open("AvailableQuests.json") as file:
+    with open("bots/AvailableQuests.json") as file:
         quests = json.load(file)
     if quest in quests:
         user_data = db.download_user_data(user)
@@ -48,7 +48,7 @@ def remove_quest(user, quest):
 
 def display_quests(user):
     # TODO: later implement a check for prerequisite met, prob a simple if statement with iterator
-    with open("AvailableQuests.json") as file:
+    with open("bots/AvailableQuests.json") as file:
         quests = json.load(file)
 
     print("Available quests")
