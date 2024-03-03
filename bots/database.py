@@ -1,5 +1,5 @@
 from pymongo.mongo_client import MongoClient
-from pymongo import  errors
+from pymongo import errors
 import os
 
 
@@ -14,14 +14,24 @@ class MongoDB:
     def close_connection(self):
         self.client.close()
 
-    def dump_user_data(self, user_data):
-        print("dumping to database:")
-        print(user_data)
+    def create_user(self, user_name):
+        print(f"Creating user: {user_name}.")
+        new_user = dict()
+        new_user['_id'] = user_name
+        new_user['user_data'] = {
+            'xp': 0,
+            'points': 0
+        }
         try:
-            self.collection.insert_one(user_data)
+            self.collection.insert_one()
         except errors.DuplicateKeyError:
-            print("too bad ):")
+            print("User already exists!")
 
-    def read_user_data(self, user_data):
-        user_document = self.collection.find_one({'_id': user_data['_id']})
+    def update_data(self, user_data):
+        filter_query = {"_id": user_data["_id"]}
+        update_query = {"$set": user_data}
+        self.collection.update_one(filter_query, update_query, upsert=True)
+
+    def download_user_data(self, user):
+        user_document = self.collection.find_one({'_id': user})
         return user_document

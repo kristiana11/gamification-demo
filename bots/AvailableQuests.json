@@ -1,0 +1,20 @@
+{
+  "first_commit":{
+    "prerequisite":null,
+    "points": 10,
+    "xp": 1,
+    "metadata":"User has finished first commit"
+  },
+  "issue_created":{
+    "prerequisite":null,
+    "points": 10,
+    "xp": 1,
+    "metadata":"User has created their first issue"
+  },
+  "first_PR":{
+    "prerequisite":null,
+    "points": 10,
+    "xp": 1,
+    "metadata":"User has created their first PR"
+  }
+}
