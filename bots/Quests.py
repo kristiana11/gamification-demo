@@ -9,7 +9,7 @@ db = MongoDB()
 
 # accept quest
 def accept_quest(user, quest):
-    with open("bots/ableQuests.json") as file:
+    with open("bots/AvailableQuests.json") as file:
         quests = json.load(file)
     user_data = db.download_user_data(user)
     if quest in quests:
