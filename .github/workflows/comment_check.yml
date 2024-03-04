@@ -12,8 +12,9 @@ jobs:
       - name: Check if comment starts with '/'
         id: check_command_prefix
         run: |
-          body=$(jq -r .comment.body issue_comment.json)
-          if [[ $body == /?* ]]; then
+          run: |
+          body="${{ github.event.comment.body }}"
+          if [[ $body == /"*" ]]; then
             echo "::set-output name=command::$(echo $body | awk '{print $1}')"
           else
             echo "::set-output name=command::none"
