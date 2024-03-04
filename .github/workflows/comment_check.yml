@@ -7,13 +7,22 @@ on:
 jobs:
   command:
     runs-on: ubuntu-latest
-    # This job only runs for issue comments
-    name: Check for "/" command
-    if: contains(github.event.comment.body, '/')
     steps:
-      - run: |
-          tree
-          python bots/Response.py ${{github.event.comment.body}} ${{github.event.issue.number}}
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        run: pip install -r bots/requirements.txt
+      # This job only runs for issue comments
+      - name: Check for "/" command
+        if: contains(github.event.comment.body, '/')
+          - run: |
+              python bots/Response.py ${{github.event.comment.body}} ${{github.event.issue.number}}
     # run python script against command (have checks for each command, script will execute accordingly)
     # script will implement Quests.py and provide a user inteface
     # either use json file I/O or pass in relavent arguments such as comment, user, issue, number
