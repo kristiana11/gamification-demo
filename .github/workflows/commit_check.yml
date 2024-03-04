@@ -1,4 +1,4 @@
-name: Commit Request Checker
+name: Commit Checker
 on: [push]
 
 jobs:

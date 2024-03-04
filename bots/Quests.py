@@ -41,7 +41,6 @@ def remove_quest(user, quest):
         if user_data['user_data'].get('accepted') is not None:
             if quest in user_data['user_data']['accepted']:
                 index = user_data['user_data']['accepted'].index(quest)
-                print(index)
                 del user_data['user_data']['accepted'][index]
         db.update_data(user_data)
 
@@ -50,7 +49,6 @@ def display_quests(user):
     # TODO: later implement a check for prerequisite met, prob a simple if statement with iterator
     with open("bots/AvailableQuests.json") as file:
         quests = json.load(file)
-
     print("Available quests")
     user_data = db.download_user_data(user)
     if 'completed' in user_data['user_data']:
