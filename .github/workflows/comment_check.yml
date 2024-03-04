@@ -7,26 +7,12 @@ on:
 jobs:
   command:
     runs-on: ubuntu-latest
+    # This job only runs for issue comments
+    name: Check for "/" command
+    if: contains(github.event.comment.body, '/')
     steps:
-      # This job only runs for issue comments
-      - name: Check if comment starts with '/'
-        id: check_command_prefix
-        run: |
-          run: |
-          body="${{ github.event.comment.body }}"
-          if [[ $body == /"*" ]]; then
-            echo "::set-output name=command::$(echo $body | awk '{print $1}')"
-          else
-            echo "::set-output name=command::none"
-          fi
-        shell: bash
-
-      - name: Run Python script if command detected
-        if: steps.check_command_prefix.outputs.command != 'none'
-        run: Response.py "${{ steps.check_command_prefix.outputs.command }}" "${{ github.event.issue.number }}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
+      - run: |
+          python bots/Response.py ${{github.event.comment.body}} ${{github.event.issue.number}}
     # run python script against command (have checks for each command, script will execute accordingly)
     # script will implement Quests.py and provide a user inteface
     # either use json file I/O or pass in relavent arguments such as comment, user, issue, number
