@@ -57,7 +57,7 @@ def display_quests(user):
         completed_quests = []
     for quest in quests:
         if quest not in completed_quests:
-            print(quest)
+            return quest
 
 
 if __name__ == '__main__':
@@ -73,6 +73,6 @@ if __name__ == '__main__':
     if command == 'drop':
         remove_quest(user, quest)
     if command == 'display':
-        display_quests(user)
+        print(display_quests(user))
     if command == 'check':
         is_quest_accepted(user, quest)

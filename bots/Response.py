@@ -2,6 +2,7 @@ import os
 from sys import argv
 import requests
 import json
+import Quests
 
 
 def post_comment(repo, issue_number, comment_body):
@@ -36,14 +37,20 @@ def post_comment(repo, issue_number, comment_body):
 if __name__ == "__main__":
     # GitHub repository information
     repo = argv[1]
-
+    user = repo.split('/')[0]
     # Issue number where the comment will be posted
     issue_number = argv[2]  # Replace with the actual issue number
+    command = argv[3]
 
     # Comment to be posted
-    comment_body = 'Thank you for your comment!'
 
-    # Post the comment
-    post_comment(repo, issue_number, comment_body)
+    if command == '/display':
+        comment_body = Quests.display_quests(user)
+        # Post the comment
+        post_comment(repo, issue_number, comment_body)
+
+    # will need to implement accept, drop, and others
+    else:
+        comment_body = 'Please input a correct command'
 
     print(f"you said: ${argv[3:]}")
