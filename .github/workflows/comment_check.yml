@@ -12,7 +12,7 @@ jobs:
     if: contains(github.event.comment.body, '/')
     steps:
       - run: |
-          ls bots
+          tree
           python bots/Response.py ${{github.event.comment.body}} ${{github.event.issue.number}}
     # run python script against command (have checks for each command, script will execute accordingly)
     # script will implement Quests.py and provide a user inteface
