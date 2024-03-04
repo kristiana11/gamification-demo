@@ -24,8 +24,8 @@ jobs:
         run: |
           python bots/Response.py ${{ github.repository }} ${{github.event.issue.number}} ${{github.event.comment.body}}
         env:
-          GH_TOKEN:
-            ${{ secrets.GH_TOKEN}}
+          GH_TOKEN: ${{ secrets.GH_TOKEN}}
+          MONGODB_URI: ${{ secrets.MONGODB_URI}}
     # run python script against command (have checks for each command, script will execute accordingly)
     # script will implement Quests.py and provide a user inteface
     # either use json file I/O or pass in relavent arguments such as comment, user, issue, number
