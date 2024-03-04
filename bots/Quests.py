@@ -57,7 +57,7 @@ def display_quests(user):
         completed_quests = []
     for quest in quests:
         if quest not in completed_quests:
-            return quest
+            return 'available quests: ' + quest
 
 
 if __name__ == '__main__':
