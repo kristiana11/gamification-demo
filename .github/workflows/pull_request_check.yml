@@ -29,6 +29,7 @@ jobs:
       run: python bots/Quests.py ${{ github.repository_owner }} check first_PR
       env:
         MONGODB_URI: ${{ secrets.MONGODB_URI}}
+        GH_TOKEN: ${{ secrets.GH_TOKEN}}
 
     - name: Run pull request checker
       if: steps.check_quest.outcome == 'success'
