@@ -57,22 +57,14 @@ if __name__ == "__main__":
         post_comment(repo, issue_number, comment_body)
 
     elif command == '/accept':
-        # Split the comment text to get the part after "/accept"
-        command_parts = comment_text.split('/accept', 1)  # Split at the first occurrence of "/accept"
-    
-        # Check if there is text after the command
-        if len(command_parts) > 1:
-            quest_text = command_parts[1].strip()  # Get the text after "/accept" and remove leading/trailing spaces
-            # Check if quest exists
-            if Quests.display_quests(user, quest_text):
-                # Call the function to accept the quest and add it to the user's database profile
-                accept_quest(user, quest_text)
-            else:
-                # Handle the case where the quest doesn't exist
-                print("Quest not found.")
+        if Quests.display_quests(user, quest):
+        # Call the function to accept the quest and add it to the user's database profile
+        accept_quest(user, quest)
+        comment_body = f"Quest '{quest}' accepted successfully."
         else:
-            # Handle the case where there is no text after the command
-            print("No quest specified.")
+            comment_body = f"Quest '{quest}' not found."
+    
+        post_comment(repo, issue_number, comment_body)
     
     else:
         comment_body = 'Invalid input, available commands: /display /newuser'  # TODO: need to work on
