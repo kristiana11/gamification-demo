@@ -3,7 +3,7 @@ from sys import argv
 import requests
 import json
 import Quests 
-from Quests.py import accept_quest
+from Quests import accept_quest
 from database import MongoDB
 
 def post_comment(repo, issue_number, comment_body):
