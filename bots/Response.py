@@ -41,6 +41,7 @@ if __name__ == "__main__":
     # Issue number where the comment will be posted
     issue_number = argv[2]  # Replace with the actual issue number
     command = argv[3]
+    quest = argv[4] #maybe add list slicing
 
     # Comment to be posted
 
@@ -54,6 +55,25 @@ if __name__ == "__main__":
         comment_body = 'Attempting to create new user'  # later should make create user DB function return feedback
         db.create_user(user)
         post_comment(repo, issue_number, comment_body)
+
+    elif command == '/accept':
+        # Split the comment text to get the part after "/accept"
+        command_parts = comment_text.split('/accept', 1)  # Split at the first occurrence of "/accept"
+    
+        # Check if there is text after the command
+        if len(command_parts) > 1:
+            quest_text = command_parts[1].strip()  # Get the text after "/accept" and remove leading/trailing spaces
+            # Check if quest exists
+            if Quests.display_quests(user, quest_text):
+                # Call the function to accept the quest and add it to the user's database profile
+                accept_quest(user, quest_text)
+            else:
+                # Handle the case where the quest doesn't exist
+                print("Quest not found.")
+        else:
+            # Handle the case where there is no text after the command
+            print("No quest specified.")
+    
     else:
         comment_body = 'Invalid input, available commands: /display /newuser'  # TODO: need to work on
 
