@@ -46,6 +46,7 @@ def remove_quest(user, quest):
 
 
 def display_quests(user):
+    response = ''
     # TODO: later implement a check for prerequisite met, prob a simple if statement with iterator
     with open("bots/AvailableQuests.json") as file:
         quests = json.load(file)
@@ -57,7 +58,8 @@ def display_quests(user):
         completed_quests = []
     for quest in quests:
         if quest not in completed_quests:
-            return 'available quests: ' + quest
+            response += quest + ' '
+    return 'available quests: ' + response
 
 
 if __name__ == '__main__':
