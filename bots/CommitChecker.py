@@ -21,7 +21,8 @@ def check_commits(user, repo, branch):
                 quests = json.load(file)
             user_data = db.download_user_data(user)
             user_data['user_data']['xp'] += quests['first_commit']['xp']
-            # TODO: remove from accepted quests, add to completed quests
+            # TODO: remove from accepted quests, add to completed quests, implement positive feedback
+            # (comment quest completed via POST request)
             user_data['user_data']['accepted'].remove('first_commit')
             if user_data['user_data'].get('completed') is not None:
                 user_data['user_data']['completed'] += ['first_commit']

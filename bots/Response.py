@@ -48,6 +48,8 @@ if __name__ == "__main__":
         comment_body = Quests.display_quests(user)
         # Post the comment
         post_comment(repo, issue_number, comment_body)
+    # user calls accept
+
 
     # will need to implement accept, drop, and others
     else:
