@@ -3,7 +3,7 @@ from sys import argv
 import requests
 import json
 import Quests
-
+from database import MongoDB
 
 def post_comment(repo, issue_number, comment_body):
     # GitHub authentication token
@@ -49,10 +49,12 @@ if __name__ == "__main__":
         # Post the comment
         post_comment(repo, issue_number, comment_body)
     # user calls accept
-
-
-    # will need to implement accept, drop, and others
+    elif command == '/newuser':
+        db = MongoDB()
+        comment_body = 'Attempting to create new user'  # later should make create user DB function return feedback
+        db.create_user(user)
+        post_comment(repo, issue_number, comment_body)
     else:
-        comment_body = 'Please input a correct command'
+        comment_body = 'Invalid input, available commands: /display /newuser'  # TODO: need to work on
 
     print(f"you said: ${argv[3:]}")
