@@ -58,9 +58,9 @@ if __name__ == "__main__":
 
     elif command == '/accept':
         if Quests.display_quests(user, quest):
-        # Call the function to accept the quest and add it to the user's database profile
-        accept_quest(user, quest)
-        comment_body = f"Quest '{quest}' accepted successfully."
+            # Call the function to accept the quest and add it to the user's database profile
+            accept_quest(user, quest)
+            comment_body = f"Quest '{quest}' accepted successfully."
         else:
             comment_body = f"Quest '{quest}' not found."
     
