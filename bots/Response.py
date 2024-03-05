@@ -57,7 +57,7 @@ if __name__ == "__main__":
         post_comment(repo, issue_number, comment_body)
 
     elif command == '/accept':
-        if Quests.display_quests(user, quest):
+        if Quests.display_quests(user):
             # Call the function to accept the quest and add it to the user's database profile
             accept_quest(user, quest)
             comment_body = f"Quest '{quest}' accepted successfully."
