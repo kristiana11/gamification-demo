@@ -23,7 +23,7 @@ class MongoDB:
             'points': 0
         }
         try:
-            self.collection.insert_one()
+            self.collection.insert_one(new_user)
         except errors.DuplicateKeyError:
             print("User already exists!")
 
