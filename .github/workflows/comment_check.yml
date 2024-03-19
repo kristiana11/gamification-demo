@@ -25,6 +25,13 @@ jobs:
         if: steps.check_command.outputs.command == 'update-readme'
         uses: actions/checkout@v2
 
+      - name: debug
+        run: |
+          pwd
+          tree -a
+          echo ' '
+          tree ./.github/workflows
+
       - name: Call Manage README Workflow
         if: steps.check_command.outputs.command == 'update-readme'
         uses: ./.github/workflows/readme_manager.yml
