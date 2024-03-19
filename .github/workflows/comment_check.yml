@@ -28,13 +28,12 @@ jobs:
       - name: debug
         run: |
           pwd
-          tree
+          tree -a
           echo ' '
-          cat ./home/runner/work/gamification-demo/gamification-demo/.github/workflows/comment_check.yml
 
       - name: Call Manage README Workflow
         if: steps.check_command.outputs.command == 'update-readme'
-        uses: ./home/runner/work/gamification-demo/gamification-demo/.github/workflows/comment_check.yml
+        uses: ./.github/workflows/comment_manager.yml
         with:
           action: 'append'
           content: |
