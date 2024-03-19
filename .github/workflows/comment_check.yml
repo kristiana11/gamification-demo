@@ -9,9 +9,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
       - name: Check if Command is Issued
         id: check_command
         if: startsWith(github.event.comment.body, '/update-readme')
@@ -25,6 +22,9 @@ jobs:
           COMMENT_BODY: ${{ github.event.comment.body }}
 
       - name: Call Manage README Workflow
+        run: |
+          pwd
+          tree
         if: steps.check_command.outputs.command == 'update-readme'
         uses: ./.github/workflows/manage_readme.yml
         with:
