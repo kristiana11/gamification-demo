@@ -23,9 +23,10 @@ jobs:
 
       - name: Call Manage README Workflow
         if: steps.check_command.outputs.command == 'update-readme'
-        uses: ./.github/workflows/readme_manager.yml
+        uses: ./actions/readme_manager
         with:
-          action: 'create'  # Assuming you want to create a new README file
+          action: 'append'  # Assuming you want to create a new README file
           content: |
-            User: ${{ github.event.comment.user.login }}
-            Content: ${{ steps.extract_content.outputs.comment_body }}
+            - User: ${{ github.event.comment.user.login }}
+            - Content: ${{ steps.extract_content.outputs.comment_body }}
+          replace_pattern: ''
