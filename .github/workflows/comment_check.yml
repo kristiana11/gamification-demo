@@ -21,6 +21,9 @@ jobs:
         env:
           COMMENT_BODY: ${{ github.event.comment.body }}
 
+      - name: Checkout Repository
+        uses: actions/checkout@v2  # Check out the repository's code
+
       - name: Call Manage README Workflow
         if: steps.check_command.outputs.command == 'update-readme'
         uses: ./actions/readme_manager
