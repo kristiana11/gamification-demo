@@ -31,6 +31,7 @@ jobs:
           tree
           cd .github/workflows
           ls
+          pwd
 
       - name: Call Manage README Workflow
         if: steps.check_command.outputs.command == 'update-readme'
