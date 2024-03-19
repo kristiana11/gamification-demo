@@ -19,7 +19,7 @@ jobs:
 
       - name: Call Manage README Workflow
         if: steps.check_command.outputs.command == 'update-readme'
-        uses: ./actions/readme_manager
+        uses: ./.github/actions/readme_manager
         with:
           action: 'create'  # Assuming you want to create a new README file
           user: ${{ github.event.comment.user.login }}

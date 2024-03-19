@@ -14,18 +14,18 @@ jobs:
         python-version: 3.x
 
     - name: Install dependencies
-      run: pip install -r bots/requirements.txt
+      run: pip install -r src/requirements.txt
 
     - name: Check for if quest is accepted
       id: check_accepted
-      run: python bots/Quests.py ${{ github.repository_owner }} check first_commit
+      run: python src/Quests.py ${{ github.repository_owner }} check first_commit
       env:
         MONGODB_URI: ${{ secrets.MONGODB_URI}}
         GH_TOKEN: ${{ secrets.GH_TOKEN}}
 
     - name: Run commit checker
       if: steps.check_quest.outcome == 'success'
-      run: python bots/CommitChecker.py ${{ github.repository_owner }} ${{ github.repository }} ${{ github.ref_name }}
+      run: python src/CommitChecker.py ${{ github.repository_owner }} ${{ github.repository }} ${{ github.ref_name }}
       env:
         MONGODB_URI: ${{ secrets.MONGODB_URI}}
         GH_TOKEN: ${{ secrets.GH_TOKEN}}

@@ -17,7 +17,7 @@ def check_commits(user, repo, branch):
         # check if the user has committed to the branch
         if user in commit_authors:
             print('User has created their first commit')
-            with open('bots/AvailableQuests.json', 'r') as file:
+            with open('src/AvailableQuests.json', 'r') as file:
                 quests = json.load(file)
             user_data = db.download_user_data(user)
             user_data['user_data']['xp'] += quests['first_commit']['xp']

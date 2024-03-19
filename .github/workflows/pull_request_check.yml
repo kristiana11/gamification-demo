@@ -26,14 +26,14 @@ jobs:
 
     - name: Check for if quest is accepted
       id: check_accepted
-      run: python bots/Quests.py ${{ github.repository_owner }} check first_PR
+      run: python src/Quests.py ${{ github.repository_owner }} check first_PR
       env:
         MONGODB_URI: ${{ secrets.MONGODB_URI}}
         GH_TOKEN: ${{ secrets.GH_TOKEN}}
 
     - name: Run pull request checker
       if: steps.check_quest.outcome == 'success'
-      run: python bots/PRChecker.py
+      run: python src/PRChecker.py
       env:
         MONGODB_URI: ${{ secrets.MONGODB_URI}}
         GH_TOKEN: ${{ secrets.GH_TOKEN}}
