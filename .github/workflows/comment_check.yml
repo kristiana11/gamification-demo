@@ -1,31 +1,32 @@
-name: comment_command
+name: Update README from Issue Comment
 
 on:
   issue_comment:
-    types: [created, edited]
+    types: [created]
 
 jobs:
-  comment_command:
+  update_readme:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: Check if Command is Issued
+        id: check_command
+        if: startsWith(github.event.comment.body, '/update-readme')
+        run: echo "::set-output name=command::update-readme"
 
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.x
-
-      - name: Install dependencies
-        run: pip install -r bots/requirements.txt
-      # This job only runs for issue comments
-      - name: Check for "/" command
-        if: contains(github.event.comment.body, '/')
-        run: |
-          python bots/Response.py ${{ github.repository }} ${{github.event.issue.number}} ${{github.event.comment.body}}
+      - name: Extract Content
+        id: extract_content
+        if: steps.check_command.outputs.command == 'update-readme'
+        run: echo "${{ github.event.comment.body }}" | cut -d' ' -f2-
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN}}
-          MONGODB_URI: ${{ secrets.MONGODB_URI}}
-    # run python script against command (have checks for each command, script will execute accordingly)
-    # script will implement Quests.py and provide a user inteface
-    # either use json file I/O or pass in relavent arguments such as comment, user, issue, number
+          COMMENT_BODY: ${{ github.event.comment.body }}
+
+      - name: Call Manage README Workflow
+        if: steps.extract_content.outputs.comment_body != ''
+        uses: ./.github/workflows/manage_readme.yml
+        with:
+          action: 'append'
+          content: |
+            - User: ${{ github.event.comment.user.login }}
+            - Content: ${{ steps.extract_content.outputs.comment_body }}
+          replace_pattern: ''
