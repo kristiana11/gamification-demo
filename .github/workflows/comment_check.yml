@@ -17,7 +17,9 @@ jobs:
       - name: Extract Content
         id: extract_content
         if: steps.check_command.outputs.command == 'update-readme'
-        run: echo "${{ github.event.comment.body }}" | cut -d' ' -f2-
+        run: |
+          echo "Extracted Content: ${{ github.event.comment.body }}"  # Debugging line
+          echo "${{ github.event.comment.body }}" | cut -d' ' -f2-
         env:
           COMMENT_BODY: ${{ github.event.comment.body }}
 
