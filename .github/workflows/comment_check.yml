@@ -30,7 +30,7 @@ jobs:
           pwd
           tree -a
           echo ' '
-          tree ./.github/workflows
+          cat ./.github/workflows/readme_manager.yml
 
       - name: Call Manage README Workflow
         if: steps.check_command.outputs.command == 'update-readme'
