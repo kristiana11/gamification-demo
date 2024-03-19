@@ -27,7 +27,7 @@ jobs:
 
       - name: Call Manage README Workflow
         if: steps.check_command.outputs.command == 'update-readme'
-        uses: /home/runner/work/gamification-demo/gamification-demo/.github/workflows
+        uses: /home/runner/work/gamification-demo/gamification-demo/.github/workflows/comment_check.yml
         with:
           action: 'append'
           content: |
