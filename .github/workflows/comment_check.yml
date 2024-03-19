@@ -21,23 +21,11 @@ jobs:
         env:
           COMMENT_BODY: ${{ github.event.comment.body }}
 
-      - name: Checkout code
-        if: steps.check_command.outputs.command == 'update-readme'
-        uses: actions/checkout@v2
-
-      - name: debug
-        run: |
-          pwd
-          tree -a
-          echo ' '
-          cat ./.github/workflows/readme_manager.yml
-
       - name: Call Manage README Workflow
         if: steps.check_command.outputs.command == 'update-readme'
         uses: ./.github/workflows/readme_manager.yml
         with:
-          action: 'append'
+          action: 'create'  # Assuming you want to create a new README file
           content: |
-            - User: ${{ github.event.comment.user.login }}
-            - Content: ${{ steps.extract_content.outputs.comment_body }}
-          replace_pattern: ''
+            User: ${{ github.event.comment.user.login }}
+            Content: ${{ steps.extract_content.outputs.comment_body }}
