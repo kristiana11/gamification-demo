@@ -13,7 +13,7 @@ jobs:
         id: check_command
         if: startsWith(github.event.comment.body, '/update-readme')
         run: echo "::set-output name=command::update-readme"
-        
+
       - name: Checkout Repository
         uses: actions/checkout@v2  # Check out the repository's code
 
@@ -22,9 +22,8 @@ jobs:
         uses: ./actions/readme_manager
         with:
           action: 'append'  # Assuming you want to create a new README file
-          content: |
-            User: ${{ github.event.comment.user.login }}
-            Content: ${{ github.event.comment.body }}
+          user: ${{ github.event.comment.user.login }}
+          content:  ${{ github.event.comment.body }}
           replace_pattern: ''
 
 

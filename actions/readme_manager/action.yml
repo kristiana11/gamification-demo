@@ -5,6 +5,9 @@ inputs:
   action:
     description: 'Action to perform on README.'
     required: true
+  user:
+    description: 'The requesting user'
+    required: true
   content:
     description: 'Content to update or create README.'
     required: false

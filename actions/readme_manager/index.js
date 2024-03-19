@@ -4,6 +4,7 @@ let readmeContent = fs.readFileSync(readmePath, 'utf8');
 
 // get argument inputs, pass into script
 const action = process.env.INPUT_ACTION;
+const user = process.env.INPUT_USER;
 const content = process.env.INPUT_CONTENT || '';
 const replacePattern = process.env.INPUT_REPLACE_PATTERN || '';
 
