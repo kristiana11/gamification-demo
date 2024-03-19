@@ -12,5 +12,5 @@ inputs:
     description: 'Pattern to replace in README.'
     required: false
 runs:
-  using: 'python'
-  main: 'manage_readme.py'
+  using: 'node12'
+  main: 'index.js'
