@@ -13,7 +13,9 @@ console.log(content)
 // action based off requested action
 switch (action) {
   case 'create':
-    readmeContent = content; // overwrite/create
+    readmeContent = user
+    readmeContent += '\n'
+    readmeContent += content; // overwrite/create
     break;
   case 'append':
     readmeContent += '\n' + content; // add to end

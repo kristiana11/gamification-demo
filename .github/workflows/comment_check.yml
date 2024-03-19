@@ -21,7 +21,7 @@ jobs:
         if: steps.check_command.outputs.command == 'update-readme'
         uses: ./actions/readme_manager
         with:
-          action: 'append'  # Assuming you want to create a new README file
+          action: 'create'  # Assuming you want to create a new README file
           user: ${{ github.event.comment.user.login }}
           content:  ${{ github.event.comment.body }}
           replace_pattern: ''
