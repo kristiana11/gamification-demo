@@ -9,6 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
       - name: Check if Command is Issued
         id: check_command
         if: startsWith(github.event.comment.body, '/update-readme')
