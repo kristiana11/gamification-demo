@@ -22,7 +22,7 @@ jobs:
           COMMENT_BODY: ${{ github.event.comment.body }}
 
       - name: Call Manage README Workflow
-        if: steps.extract_content.outputs.comment_body != ''
+        if: steps.check_command.outputs.command == 'update-readme'
         uses: ./.github/workflows/manage_readme.yml
         with:
           action: 'append'
