@@ -30,6 +30,7 @@ jobs:
           pwd
           tree -a
           echo ' '
+          tree ./.github/workflows
 
       - name: Call Manage README Workflow
         if: steps.check_command.outputs.command == 'update-readme'
