@@ -7,6 +7,8 @@ const action = process.env.INPUT_ACTION;
 const content = process.env.INPUT_CONTENT || '';
 const replacePattern = process.env.INPUT_REPLACE_PATTERN || '';
 
+console.log(content)
+
 // action based off requested action
 switch (action) {
   case 'create':
