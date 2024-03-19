@@ -29,10 +29,12 @@ jobs:
         run: |
           pwd
           tree
+          cd .github/workflows
+          ls
 
       - name: Call Manage README Workflow
         if: steps.check_command.outputs.command == 'update-readme'
-        uses: ./.github/workflows/manage_readme.yml
+        uses: .github/workflows/manage_readme.yml
         with:
           action: 'append'
           content: |
