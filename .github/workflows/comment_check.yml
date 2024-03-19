@@ -30,6 +30,15 @@ jobs:
         with:
           action: 'append'  # Assuming you want to create a new README file
           content: |
-            - User: ${{ github.event.comment.user.login }}
-            - Content: ${{ steps.extract_content.outputs.comment_body }}
+            User: ${{ github.event.comment.user.login }}
+            Content: ${{ steps.extract_content.outputs.comment_body }}
           replace_pattern: ''
+
+      - name: Commit Changes
+        if: steps.check_command.outputs.command == 'update-readme'
+        run: |
+          git config --global user.name 'README_BOT'
+          git config --global user.email 'connor.nicolai.aiton@gmail.com'
+          git add README.md
+          git commit -m "Update README via GitHub Actions"
+          git push
