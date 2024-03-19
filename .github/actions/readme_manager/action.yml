@@ -1,6 +1,6 @@
 name: 'Manage README'
 description: 'A GitHub Action to manage README files.'
-author: 'Your Name'
+author: 'caiton1'
 inputs:
   action:
     description: 'Action to perform on README.'
