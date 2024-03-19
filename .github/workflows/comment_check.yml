@@ -18,10 +18,14 @@ jobs:
         id: extract_content
         if: steps.check_command.outputs.command == 'update-readme'
         run: |
-          echo "Extracted Content: ${{ github.event.comment.body }}"  # Debugging line
-          echo "${{ github.event.comment.body }}" | cut -d' ' -f2-
+          echo "${{ github.event.comment.body }}" | tail -n +2
         env:
           COMMENT_BODY: ${{ github.event.comment.body }}
+
+      - name: Set Extracted Content
+        id: set_extracted_content
+        if: steps.check_command.outputs.command == 'update-readme'
+        run: echo "::set-output name=extracted_content::${{ steps.extract_content.outputs.stdout }}"
 
       - name: Checkout Repository
         uses: actions/checkout@v2  # Check out the repository's code
@@ -33,7 +37,7 @@ jobs:
           action: 'append'  # Assuming you want to create a new README file
           content: |
             User: ${{ github.event.comment.user.login }}
-            Content: ${{ steps.extract_content.outputs.comment_body }}
+            Content: ${{ steps.set_extracted_content.outputs.extracted_content }}
           replace_pattern: ''
 
       - name: Commit Changes
