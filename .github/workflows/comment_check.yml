@@ -25,17 +25,9 @@ jobs:
         if: steps.check_command.outputs.command == 'update-readme'
         uses: actions/checkout@v2
 
-      - name: pwd
-        run: |
-          pwd
-          tree
-          cd .github/workflows
-          ls
-          pwd
-
       - name: Call Manage README Workflow
         if: steps.check_command.outputs.command == 'update-readme'
-        uses: ./.github/workflows/manage_readme.yml
+        uses: /home/runner/work/gamification-demo/gamification-demo/.github/workflows
         with:
           action: 'append'
           content: |
