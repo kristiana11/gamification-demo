@@ -21,10 +21,12 @@ jobs:
         env:
           COMMENT_BODY: ${{ github.event.comment.body }}
 
-      - name: Call Manage README Workflow
+      - name: print pwd
         run: |
           pwd
           tree
+
+      - name: Call Manage README Workflow
         if: steps.check_command.outputs.command == 'update-readme'
         uses: ./.github/workflows/manage_readme.yml
         with:
