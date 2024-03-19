@@ -13,12 +13,7 @@ jobs:
         id: check_command
         if: startsWith(github.event.comment.body, '/update-readme')
         run: echo "::set-output name=command::update-readme"
-
-      - name: Extract Content
-        id: extract_content
-        if: steps.check_command.outputs.command == 'update-readme'
-
-
+        
       - name: Checkout Repository
         uses: actions/checkout@v2  # Check out the repository's code
 
