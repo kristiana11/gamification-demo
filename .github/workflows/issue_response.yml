@@ -21,7 +21,7 @@ jobs:
           if [[ "$comment" =~ ^/ ]]; then
             command=$(echo "$comment" | cut -d' ' -f1)
             if [[ "$command" =~ ^/(new|accept|drop|display|check)(\s.*)?$ ]]; then
-              echo "::set-output name=quest_command::quest-command"
+              echo "::set-output name=command::quest-command"
             elif [[ "$command" =~ ^/update-readme ]]; then
               echo "::set-output name=command::update-readme"
             else
