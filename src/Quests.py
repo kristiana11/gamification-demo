@@ -24,6 +24,7 @@ def accept_quest(user, quest):
         if not user_data['user_data']['accepted']:
             # initialize tasks for the accepted quest
             tasks = quests[quest]
+            user_data['user_data']['accepted'][quest] = dict()
             for task, task_data in tasks.items():
                 # Initialize the task with completion status, ignore metadata
                 if task != 'metadata':
