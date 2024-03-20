@@ -12,7 +12,6 @@ def accept_quest(user, quest):
     # load quests
     with open("src/AvailableQuests.json") as file:
         quests = json.load(file)
-
     # quest exists?
     if quest in quests:
         user_data = db.download_user_data(user)
@@ -21,19 +20,20 @@ def accept_quest(user, quest):
         if 'accepted' not in user_data['user_data']:
             user_data['user_data']['accepted'] = {}
 
-        # check quest already accepted by the user
-        if quest not in user_data['user_data']['accepted']:
-            user_data['user_data']['accepted'][quest] = {}
-
+        # only can accept one quest at a time
+        if user_data['user_data']['accepted'] is {}:
             # initialize tasks for the accepted quest
             tasks = quests[quest]
             for task, task_data in tasks.items():
                 # Initialize the task with completion status, ignore metadata
                 if task != 'metadata':
                     user_data['user_data']['accepted'][quest][task] = {'completed': False}
-
             # Update user data
             db.update_data(user_data)
+            return f'Successfully accepted {quest}'
+        else:
+            return 'You can only accept one quest at a time! Complete you current quest first!'
+
 
 
 # FOR GitHub actions workflow, WILL exit prematurely if used in code
