@@ -60,7 +60,8 @@ if __name__ == "__main__":
     elif command == '/accept':
         # Call the function to accept the quest and add it to the user's database profile
         comment_body = Quests.accept_quest(user, quest)
-
+    elif command == '/drop':
+        comment_body = Quests.remove_quest(user)
     else:
         comment_body = 'Invalid input, available commands: /display /newuser /accept <Q#>'  # TODO: need to work on
 
