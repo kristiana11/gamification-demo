@@ -21,7 +21,7 @@ def accept_quest(user, quest):
             user_data['user_data']['accepted'] = {}
 
         # only can accept one quest at a time
-        if user_data['user_data']['accepted'] is {}:
+        if user_data['user_data']['accepted'] is {} or user_data['user_data']['accepted'] is None:
             # initialize tasks for the accepted quest
             tasks = quests[quest]
             for task, task_data in tasks.items():

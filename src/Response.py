@@ -63,7 +63,7 @@ if __name__ == "__main__":
     elif command == '/drop':
         comment_body = Quests.remove_quest(user)
     else:
-        comment_body = 'Invalid input, available commands: /display /newuser /accept <Q#>'  # TODO: need to work on
+        comment_body = 'Invalid input, available commands: /display /newuser /drop /accept <Q#>'  # TODO: need to work on
 
     post_comment(repo, issue_number, comment_body)
     print(f"you said: ${argv[3:]}")
