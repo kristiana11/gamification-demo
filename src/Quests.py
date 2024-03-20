@@ -20,10 +20,8 @@ def accept_quest(user, quest):
         if 'accepted' not in user_data['user_data']:
             user_data['user_data']['accepted'] = dict()
 
-        print(user_data['user_data'])
-
         # only can accept one quest at a time
-        if user_data['user_data']['accepted'] is {} or user_data['user_data']['accepted'] is None:
+        if not user_data['user_data']['accepted']:
             # initialize tasks for the accepted quest
             tasks = quests[quest]
             for task, task_data in tasks.items():
