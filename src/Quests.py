@@ -112,7 +112,7 @@ def complete_task(user, quest, task):
     with open("src/AvailableQuests.json") as file:
         quests = json.load(file)
 
-    points = quests[quest][quest][task][points]
+    points = quests[quest][task]['points'] # TODO: potential key issue here
     print(f"User got {points} points")
 
     # check quest is accepted by the user and the task exists
