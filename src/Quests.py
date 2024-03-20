@@ -33,6 +33,8 @@ def accept_quest(user, quest):
             return f'Successfully accepted {quest}'
         else:
             return 'You can only accept one quest at a time! Complete you current quest first!'
+    else:
+        return 'Invalid quest! please input /accept Q#'
 
 
 

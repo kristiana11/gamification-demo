@@ -2,8 +2,7 @@ import os
 from sys import argv
 import requests
 import json
-import Quests 
-from Quests import accept_quest
+import Quests
 from database import MongoDB
 
 def post_comment(repo, issue_number, comment_body):
@@ -59,14 +58,9 @@ if __name__ == "__main__":
         db.create_user(user)
 
     elif command == '/accept':
-        if Quests.display_quests(user):
-            # Call the function to accept the quest and add it to the user's database profile
-            accept_quest(user, quest)
-            comment_body = f"Quest '{quest}' accepted successfully."
-        else:
-            comment_body = f"Quest '{quest}' not found."
+        # Call the function to accept the quest and add it to the user's database profile
+        comment_body = Quests.accept_quest(user, quest)
 
-    
     else:
         comment_body = 'Invalid input, available commands: /display /newuser /accept <Q#>'  # TODO: need to work on
 
