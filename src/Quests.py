@@ -29,7 +29,7 @@ def accept_quest(user, quest):
             tasks = quests[quest]
             for task, task_data in tasks.items():
                 # Initialize the task with completion status
-                user_data['user_data']['accepted '][quest][task] = {'completed': False}
+                user_data['user_data']['accepted'][quest][task] = {'completed': False}
 
             # Update user data
             db.update_data(user_data)
