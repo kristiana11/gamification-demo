@@ -41,23 +41,6 @@ jobs:
           content:  ${{ github.event.comment.body }}
           replace_pattern: ''
 
-      # QUEST TEST SECTION
-      - name: Use response bot to manage quests
-        if: steps.check_command.outputs.command == 'quest-command'
-        run: |
-          python src/Response.py ${{ github.repository }} ${{github.event.issue.number}} ${{github.event.comment.body}}
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN}}
-          MONGODB_URI: ${{ secrets.MONGODB_URI}}
-
-      # INCORRECT COMMAND same as quest for now, may need to change this in the future is why this is separate
-      - name: Incorrect Command
-        if: steps.check_command.outputs.command == 'unknown'
-        run: |
-          python src/Response.py ${{ github.repository }} ${{github.event.issue.number}} ${{github.event.comment.body}}
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN}}
-          MONGODB_URI: ${{ secrets.MONGODB_URI}}
       # SAVE CHANGES
       - name: Commit Changes
         if: steps.check_command.outputs.command == 'update-readme'
@@ -67,4 +50,29 @@ jobs:
           git add README.md
           git commit -m "Update README via GitHub Actions"
           git push
+
+      # install requirements
+      - name: Install dependencies
+        if: steps.check_command.outputs.command != 'non-command'
+        run: pip install -r src/requirements.txt
+
+      # QUEST TEST SECTION
+      - name: Use response bot to manage quests
+        if: steps.check_command.outputs.command == 'quest-command'
+        run: |
+          python src/Response.py ${{ github.repository }} ${{github.event.issue.number}} ${{github.event.comment.body}}
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN}}
+          MONGODB_URI: ${{ secrets.MONGODB_URI}}
+
+      # INCORRECT COMMAND
+      - name: Incorrect Command
+        if: steps.check_command.outputs.command == 'unknown'
+        run: |
+          python src/Response.py ${{ github.repository }} ${{github.event.issue.number}} ${{github.event.comment.body}}
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN}}
+          MONGODB_URI: ${{ secrets.MONGODB_URI}}
+
+
 

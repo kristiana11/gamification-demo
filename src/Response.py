@@ -51,7 +51,7 @@ if __name__ == "__main__":
         # Post the comment
         post_comment(repo, issue_number, comment_body)
     # user calls accept
-    elif command == '/newuser':
+    elif command == '/new':
         db = MongoDB()
         comment_body = 'Attempting to create new user'  # later should make create user DB function return feedback
         db.create_user(user)
