@@ -126,15 +126,18 @@ def display_quests(user):
 
     user_data = db.download_user_data(user)
 
-    if 'completed' in user_data['user_data']:
-        completed_quests = user_data['user_data']['completed']
+    if user_data is None:
+        return 'Please comment /new to create user'
     else:
-        completed_quests = []
+        if 'completed' in user_data['user_data']:
+            completed_quests = user_data['user_data']['completed']
+        else:
+            completed_quests = []
 
-    for quest_id, quest_data in quest.items():
-        if quest_id not in completed_quests:
-            response += quest_id + ': ' + quest_data["metadata"]["title"] + '\n'
-    return 'Available quests: \n' + response + 'Please respond with /accept <Q# --> corresponding quest number>'
+        for quest_id, quest_data in quests.items():
+            if quest_id not in completed_quests:
+                response += quest_id + ': ' + quest_data["metadata"]["title"] + '\n'
+        return 'Available quests: \n' + response + 'Please respond with /accept <Q# --> corresponding quest number>'
 
 
 if __name__ == '__main__':
