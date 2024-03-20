@@ -42,8 +42,10 @@ if __name__ == "__main__":
     # Issue number where the comment will be posted
     issue_number = argv[2]  # Replace with the actual issue number
     command = argv[3]
-    if argv.length() == 5:
+    # quest = argv[3].split(' ')[1]
+    if len(argv) > 4:
         quest = argv[4] #maybe add list slicing
+        print(argv)
 
     # Comment to be posted
 
