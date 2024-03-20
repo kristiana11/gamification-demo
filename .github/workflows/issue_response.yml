@@ -21,7 +21,7 @@ jobs:
           if [[ "$comment" =~ ^/ ]]; then
             command=$(echo "$comment" | cut -d' ' -f1)
             if [[ "$command" =~ ^/(new|accept|drop|display|check)(\s.*)?$ ]]; then
-              echo "::set-output name=command::quest-command"
+              echo "::set-output name=quest_command::$command"
             elif [[ "$command" =~ ^/update-readme ]]; then
               echo "::set-output name=command::update-readme"
             else
@@ -69,6 +69,7 @@ jobs:
       - name: Incorrect Command
         if: steps.check_command.outputs.command == 'unknown'
         run: |
+          echo ${{github.event.comment.body}}
           python src/Response.py ${{ github.repository }} ${{github.event.issue.number}} ${{github.event.comment.body}}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN}}
