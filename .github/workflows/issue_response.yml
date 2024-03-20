@@ -31,6 +31,10 @@ jobs:
             echo "::set-output name=command::non-command"
           fi
 
+      - name: debug
+        run: echo ${{steps.check_command.outputs.command}}
+
+
       # README MANAGER TEST SECTION
       - name: Call Manage README Workflow
         if: steps.check_command.outputs.command == 'update-readme'
