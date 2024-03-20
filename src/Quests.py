@@ -23,7 +23,7 @@ def accept_quest(user, quest):
 
         # check quest already accepted by the user
         if quest not in user_data['user_data']['accepted']:
-            user_data['user_data']['accepted'].append(quest)
+            user_data['user_data']['accepted'][quest] = {}
 
             # initialize tasks for the accepted quest
             tasks = quests[quest]
