@@ -1,7 +1,7 @@
 {
   "Q1": {
     "metadata":{
-      "title": "Exploring the GitHub World (WIP CURRENTLY WORKING ON)",
+      "title": "Exploring the GitHub World",
       "prerequisite": null
     },
     "Find the issue tracker":{"points": 20},
@@ -12,7 +12,7 @@
   },
   "Q2": {
     "metadata":{
-      "title": "Introducing yourself to the community (WIP BROKEN)",
+      "title": "Introducing yourself to the community",
       "prerequisite": "Q1"
     },
     "Choose an issue that you would like to work with": {"points": 20},
@@ -21,7 +21,7 @@
   },
   "Q3": {
     "metadata":{
-      "title": "Making your first contribution (WIP BROKEN)",
+      "title": "Making your first contribution",
       "prerequisite": "Q2"
     },
     "Solve the issue (upload a file/make commit)": {"points": 20},

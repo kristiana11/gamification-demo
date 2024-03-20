@@ -68,6 +68,6 @@ if __name__ == "__main__":
         post_comment(repo, issue_number, comment_body)
     
     else:
-        comment_body = 'Invalid input, available commands: /display /newuser'  # TODO: need to work on
+        comment_body = 'Invalid input, available commands: /display /newuser /accept <Q#>'  # TODO: need to work on
 
     print(f"you said: ${argv[3:]}")

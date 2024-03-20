@@ -9,27 +9,58 @@ db = MongoDB()
 
 # accept quest
 def accept_quest(user, quest):
+    # load quests
     with open("src/AvailableQuests.json") as file:
         quests = json.load(file)
-    user_data = db.download_user_data(user)
+
+    # quest exists?
     if quest in quests:
-        if user_data['user_data'].get('accepted') is not None:
-            if quest not in user_data['user_data']['accepted']:
-                user_data['user_data']['accepted'] += [quest]
-        else:
-            user_data['user_data']['accepted'] = [quest]
-    db.update_data(user_data)
+        user_data = db.download_user_data(user)
+
+        # initialize accepted quests if needed
+        if 'accepted' not in user_data['user_data']:
+            user_data['user_data']['accepted'] = []
+
+        # check quest already accepted by the user
+        if quest not in user_data['user_data']['accepted']:
+            user_data['user_data']['accepted'].append(quest)
+
+            # initialize tasks for the accepted quest
+            tasks = quests[quest]
+            for task, task_data in tasks.items():
+                # Initialize the task with completion status
+                user_data['user_data']['accepted '][quest][task] = {'completed': False}
+
+            # Update user data
+            db.update_data(user_data)
 
 
-def is_quest_accepted(user, quest):
+# FOR GitHub actions workflow, WILL exit prematurely if used in code
+def check_quest_accepted(user, quest):
     with open("src/AvailableQuests.json") as file:
         quests = json.load(file)
+
     if quest in quests:
         user_data = db.download_user_data(user)
         if user_data['user_data'].get('accepted') is not None:
             if quest in user_data['user_data']['accepted']:
                 sys.exit(0)  # success
+
     sys.exit(1)  # fail
+
+
+# FOR python scripts as supporting function
+def is_quest_accepted(user, quest):
+    with open("src/AvailableQuests.json") as file:
+        quests = json.load(file)
+
+    if quest in quests:
+        user_data = db.download_user_data(user)
+        if user_data['user_data'].get('accepted') is not None:
+            if quest in user_data['user_data']['accepted']:
+                return true
+
+    return false
 
 
 # remove quest
@@ -42,7 +73,49 @@ def remove_quest(user, quest):
             if quest in user_data['user_data']['accepted']:
                 index = user_data['user_data']['accepted'].index(quest)
                 del user_data['user_data']['accepted'][index]
+
         db.update_data(user_data)
+
+
+# complete quest
+def complete_quest(user, quest):
+    user_data = db.download_user_data(user)
+
+    # check if the quest accepted by the user
+    if 'accepted' in user_data['user_data'] and quest in user_data['user_data']['accepted']:
+        # big one, basically just checking that ALL tasks under quest are true
+        tasks_completed = all(
+            user_data['user_data'].get(task, {}).get('completed', False) for task in user_data['user_data'][quest])
+
+        # all tasks related to the quest are completed
+        if tasks_completed:
+            # remove from accepted quests
+            user_data['user_data']['accepted'].remove(quest)
+
+            # add quest ID to completed quests
+            if 'completed' not in user_data['user_data']:
+                user_data['user_data']['completed'] = []
+            user_data['user_data']['completed'].append(quest)
+
+            # update user data
+            db.update_data(user_data)
+            return True  # quest successfully completed
+    return False  # quest not completed
+
+
+def complete_task(user, quest, task):
+    user_data = db.download_user_data(user)
+
+    # check quest is accepted by the user and the task exists
+    if 'accepted' in user_data['user_data'] and quest in user_data['user_data']['accepted'] \
+            and task in user_data['user_data']['accepted'][quest]:
+        # Mark the task as completed
+        user_data['user_data']['accepted'][quest][task]['completed'] = True
+
+        # Update user data
+        db.update_data(user_data)
+        return True
+    return False  # not completed
 
 
 def display_quests(user):
@@ -50,16 +123,18 @@ def display_quests(user):
     # TODO: later implement a check for prerequisite met, prob a simple if statement with iterator
     with open("src/AvailableQuests.json") as file:
         quests = json.load(file)
-    print("Available quests")
+
     user_data = db.download_user_data(user)
+
     if 'completed' in user_data['user_data']:
         completed_quests = user_data['user_data']['completed']
     else:
         completed_quests = []
-    for quest in quests:
-        if quest not in completed_quests:
-            response += quest + ' '
-    return 'available quests: ' + response
+
+    for quest_id, quest_data in quest.items():
+        if quest_id not in completed_quests:
+            response += quest_id + ': ' + quest_data["metadata"]["title"] + '\n'
+    return 'Available quests: \n' + response + 'Please respond with /accept <Q# --> corresponding quest number>'
 
 
 if __name__ == '__main__':
@@ -77,4 +152,4 @@ if __name__ == '__main__':
     if command == 'display':
         print(display_quests(user))
     if command == 'check':
-        is_quest_accepted(user, quest)
+        check_quest_accepted(user, quest)

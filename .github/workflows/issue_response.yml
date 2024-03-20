@@ -1,0 +1,62 @@
+name: Update README from Issue Comment
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  update_readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2  # Check out the repository's code
+
+      # GET COMMAND
+      - name: Check if Command is Issued
+        id: check_command
+        # prepare for regular expressions ): (sorry)
+        run: |
+          comment="${{ github.event.comment.body }}"
+          if [[ "$comment" =~ ^/ ]]; then
+            command=$(echo "$comment" | cut -d' ' -f1)
+            if [[ "$command" =~ ^/(new|accept|drop|display|check)(\s.*)?$ ]]; then
+              echo "::set-output name=command::quest-command"
+            elif [[ "$command" =~ ^/update-readme ]]; then
+              echo "::set-output name=command::update-readme"
+            else
+              echo "::set-output name=command::unknown"
+            fi
+          else
+            echo "::set-output name=command::non-command"
+          fi
+
+      # README MANAGER TEST SECTION
+      - name: Call Manage README Workflow
+        if: steps.check_command.outputs.command == 'update-readme'
+        uses: ./.github/actions/readme_manager
+        with:
+          action: 'create'  # Assuming you want to create a new README file
+          user: ${{ github.event.comment.user.login }}
+          content:  ${{ github.event.comment.body }}
+          replace_pattern: ''
+
+      # QUEST TEST SECTION
+      - name: Use response bot to manage quests
+        if: steps.check_command.outputs.command == 'quest-command'
+        run: |
+          python bots/Response.py ${{ github.repository }} ${{github.event.issue.number}} ${{github.event.comment.body}}
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN}}
+          MONGODB_URI: ${{ secrets.MONGODB_URI}}
+
+      # SAVE CHANGES
+      - name: Commit Changes
+        if: steps.check_command.outputs.command == 'update-readme'
+        run: |
+          git config --global user.name 'README_BOT'
+          git config --global user.email 'connor.nicolai.aiton@gmail.com'
+          git add README.md
+          git commit -m "Update README via GitHub Actions"
+          git push
+
