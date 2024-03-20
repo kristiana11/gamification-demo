@@ -28,8 +28,9 @@ def accept_quest(user, quest):
             # initialize tasks for the accepted quest
             tasks = quests[quest]
             for task, task_data in tasks.items():
-                # Initialize the task with completion status
-                user_data['user_data']['accepted'][quest][task] = {'completed': False}
+                # Initialize the task with completion status, ignore metadata
+                if task != 'metadata':
+                    user_data['user_data']['accepted'][quest][task] = {'completed': False}
 
             # Update user data
             db.update_data(user_data)
