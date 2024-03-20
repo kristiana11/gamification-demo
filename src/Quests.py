@@ -108,12 +108,19 @@ def complete_quest(user, quest):
 
 def complete_task(user, quest, task):
     user_data = db.download_user_data(user)
+    # load quests
+    with open("src/AvailableQuests.json") as file:
+        quests = json.load(file)
+
+    points = quests[quest][quest][task][points]
+    print(f"User got {points} points")
 
     # check quest is accepted by the user and the task exists
     if 'accepted' in user_data['user_data'] and quest in user_data['user_data']['accepted'] \
             and task in user_data['user_data']['accepted'][quest]:
         # Mark the task as completed
         user_data['user_data']['accepted'][quest][task]['completed'] = True
+        user_data['user_data'][points] += points
 
         # Update user data
         db.update_data(user_data)

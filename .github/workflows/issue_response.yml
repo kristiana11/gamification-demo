@@ -55,7 +55,7 @@ jobs:
           git commit -m "Update README via GitHub Actions"
           git push
 
-      # install requirements
+      # INSTALL REQUIRNMENTS
       - name: Install dependencies
         if: steps.check_command.outputs.command != 'non-command'
         run: pip install -r src/requirements.txt
