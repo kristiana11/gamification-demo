@@ -52,13 +52,11 @@ if __name__ == "__main__":
     if command == '/display':
         comment_body = Quests.display_quests(user)
         # Post the comment
-        post_comment(repo, issue_number, comment_body)
     # user calls accept
     elif command == '/new':
         db = MongoDB()
         comment_body = 'Attempting to create new user'  # later should make create user DB function return feedback
         db.create_user(user)
-        post_comment(repo, issue_number, comment_body)
 
     elif command == '/accept':
         if Quests.display_quests(user):
@@ -67,10 +65,10 @@ if __name__ == "__main__":
             comment_body = f"Quest '{quest}' accepted successfully."
         else:
             comment_body = f"Quest '{quest}' not found."
-    
-        post_comment(repo, issue_number, comment_body)
+
     
     else:
         comment_body = 'Invalid input, available commands: /display /newuser /accept <Q#>'  # TODO: need to work on
 
+    post_comment(repo, issue_number, comment_body)
     print(f"you said: ${argv[3:]}")
