@@ -45,7 +45,7 @@ jobs:
       - name: Use response bot to manage quests
         if: steps.check_command.outputs.command == 'quest-command'
         run: |
-          python bots/Response.py ${{ github.repository }} ${{github.event.issue.number}} ${{github.event.comment.body}}
+          python src/Response.py ${{ github.repository }} ${{github.event.issue.number}} ${{github.event.comment.body}}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN}}
           MONGODB_URI: ${{ secrets.MONGODB_URI}}
@@ -54,7 +54,7 @@ jobs:
       - name: Incorrect Command
         if: steps.check_command.outputs.command == 'unknown'
         run: |
-          python bots/Response.py ${{ github.repository }} ${{github.event.issue.number}} ${{github.event.comment.body}}
+          python src/Response.py ${{ github.repository }} ${{github.event.issue.number}} ${{github.event.comment.body}}
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN}}
           MONGODB_URI: ${{ secrets.MONGODB_URI}}
