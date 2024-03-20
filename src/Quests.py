@@ -19,7 +19,7 @@ def accept_quest(user, quest):
 
         # initialize accepted quests if needed
         if 'accepted' not in user_data['user_data']:
-            user_data['user_data']['accepted'] = []
+            user_data['user_data']['accepted'] = {}
 
         # check quest already accepted by the user
         if quest not in user_data['user_data']['accepted']:
