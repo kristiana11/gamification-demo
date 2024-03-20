@@ -18,7 +18,9 @@ def accept_quest(user, quest):
 
         # initialize accepted quests if needed
         if 'accepted' not in user_data['user_data']:
-            user_data['user_data']['accepted'] = {}
+            user_data['user_data']['accepted'] = dict()
+
+        print(user_data['user_data'])
 
         # only can accept one quest at a time
         if user_data['user_data']['accepted'] is {} or user_data['user_data']['accepted'] is None:
