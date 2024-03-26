@@ -5,4 +5,4 @@ This will appear in readme
 
 
 Testing User Card Stats Here:
-![User Draft Stats](gamification-demo/cards/draft.svg)
+![User Draft Stats](/cards/draft.svg)
