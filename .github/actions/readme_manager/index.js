@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { generateMarkdown } = require('github-readme-stats');
 const readmePath = `${process.env.GITHUB_WORKSPACE}/README.md`;
 let readmeContent = fs.readFileSync(readmePath, 'utf8');
 
@@ -35,23 +34,6 @@ switch (action) {
 }
 
 // write to file
-// fs.writeFileSync(readmePath, readmeContent);
-
-generateMarkdown({ username: user, show_icons: true })
-  .then(statsMarkdown => {
-    // Integrate GitHub Readme Stats into README content
-    const githubStatsContent = `[![${user}'s GitHub stats](https://github-readme-stats.vercel.app/api?username=${user})](https://github.com/${user}/github-readme-stats)`;
-
-    // Replace placeholder in README content with GitHub Readme Stats content
-    readmeContent = readmeContent.replace('<!--PLACEHOLDER_STATS_CARD-->', githubStatsContent);
-
-    // Write updated content back to README file
-    fs.writeFileSync(readmePath, readmeContent);
-
-    console.log('GitHub Readme Stats added to README successfully.');
-  })
-  .catch(error => {
-    console.error('Error generating GitHub Readme Stats:', error);
-  });
+fs.writeFileSync(readmePath, readmeContent);
 
 console.log('README managed successfully.');
