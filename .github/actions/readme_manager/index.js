@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { generateMarkdown } = require('github-readme-stats');
 const readmePath = `${process.env.GITHUB_WORKSPACE}/README.md`;
 let readmeContent = fs.readFileSync(readmePath, 'utf8');
 
