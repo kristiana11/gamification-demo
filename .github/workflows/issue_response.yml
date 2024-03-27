@@ -52,7 +52,7 @@ jobs:
           action: 'create'
           user: ${{ github.event.comment.user.login }}
           description: 'Youve found the issue section! answer 32 below to complete task'
-      - name: Create task 2 - find PR
+      - name: Creating new file for PR
         if: steps.check_command.outputs.quest = 'Q1'
         run: |
           echo "test" > test.txt 
@@ -60,6 +60,7 @@ jobs:
           git config --global user.email 'connor.nicolai.aiton@gmail.com'
           git add test.txt
           git commit -m "Adding new test.txt file"
+      - name: Create task 2 - find PR
         uses: ./.github/actions/PR_manager
         with:
           action: 'create'
