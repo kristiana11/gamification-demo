@@ -22,6 +22,16 @@ jobs:
             command=$(echo "$comment" | cut -d' ' -f1)
             if [[ "$command" =~ ^/(new|accept|drop|display|check)(\s.*)?$ ]]; then
               echo "::set-output name=command::quest-command"
+              args=$(echo "$comment" | cut -d' ' -f2-)
+              if [[ "$command" == "/accept" ]]; then
+                if [[ "$args" == "Q1" ]]; then
+                  echo "::set-output name=quest::Q1"
+                elif [[ "$args" == "Q2" ]]; then
+                  echo "::set-output name=quest::Q2"
+                elif [[ "$args" == "Q3" ]]; then
+                  echo "::set-output name=quest::Q3"
+                fi
+              fi
             elif [[ "$command" =~ ^/update-readme ]]; then
               echo "::set-output name=command::update-readme"
             else
@@ -33,6 +43,57 @@ jobs:
 
       - name: debug
         run: echo ${{steps.check_command.outputs.command}}
+
+      # QUEST SECTION
+      - name: Set up Environment for quest
+        if: steps.check_command.outputs.quest = 'Q1'
+        steps:
+          - name: Create task 1 - find issue section
+            uses: ./.github/actions/issue_manager
+            with:
+              action: 'create'
+              user: ${{ github.event.comment.user.login }}
+              description: 'Youve found the issue section! answer 32 below to complete task'
+          - name: Create task 2 - find PR
+            run: |
+              echo "test" > test.txt 
+              git config --global user.name 'README_BOT'
+              git config --global user.email 'connor.nicolai.aiton@gmail.com'
+              git add test.txt
+              git commit -m "Adding new test.txt file"
+            uses: ./.github/actions/PR_manager
+            with:
+              action: 'create'
+              user: ${{ github.event.comment.user.login }}
+              description: 'You have found a Pull Request! answer 41 below to complete the task'
+          - name: Create task 3 - find fork button
+            uses: ./.github/actions/issue_manager
+            with:
+              action: 'create'
+              user: ${{ github.event.comment.user.login }}
+              description: >
+                When you go to https://github.com/caiton1/gamification-demo
+                where is the fork button?
+                a) In the about section
+                b) In the hamburger menu on the top left
+                c) In the kitchen drawer 
+                d) Near the top right, on the right of the repo title
+                Respond with: (a,b,c or d)
+          - name: Create task 4 - find the readme file
+            uses: ./.github/actions/readme_manager
+            with:
+              action: 'append'
+              user: ${{ github.event.comment.user.login }}
+              content: 'You found the README! answer 12 in an issue to complete the task.'
+              replace_pattern: ''
+          - name: Create task 5 - Find the contributors
+            uses: ./.github/actions/issue_manager
+            with:
+              action: 'create'
+              user: ${{ github.event.comment.user.login }}
+              description: >
+                Please copy and past one of the names of the contributors below.
+
 
 
       # README MANAGER TEST SECTION
