@@ -46,14 +46,14 @@ jobs:
 
       # QUEST SECTION
       - name: Create task 1 - find issue section
-        if: steps.check_command.outputs.quest = 'Q1'
+        if: steps.check_command.outputs.quest == 'Q1'
         uses: ./.github/actions/issue_manager
         with:
           action: 'create'
           user: ${{ github.event.comment.user.login }}
           description: 'Youve found the issue section! answer 32 below to complete task'
       - name: Creating new file for PR
-        if: steps.check_command.outputs.quest = 'Q1'
+        if: steps.check_command.outputs.quest == 'Q1'
         run: |
           echo "test" > test.txt 
           git config --global user.name 'README_BOT'
@@ -67,7 +67,7 @@ jobs:
           user: ${{ github.event.comment.user.login }}
           description: 'You have found a Pull Request! answer 41 below to complete the task'
       - name: Create task 3 - find fork button
-        if: steps.check_command.outputs.quest = 'Q1'
+        if: steps.check_command.outputs.quest == 'Q1'
         uses: ./.github/actions/issue_manager
         with:
           action: 'create'
@@ -81,7 +81,7 @@ jobs:
             d) Near the top right, on the right of the repo title
             Respond with: (a,b,c or d)
       - name: Create task 4 - find the readme file
-        if: steps.check_command.outputs.quest = 'Q1'
+        if: steps.check_command.outputs.quest == 'Q1'
         uses: ./.github/actions/readme_manager
         with:
           action: 'append'
@@ -89,7 +89,7 @@ jobs:
           content: 'You found the README! answer 12 in an issue to complete the task.'
           replace_pattern: ''
       - name: Create task 5 - Find the contributors
-        if: steps.check_command.outputs.quest = 'Q1'
+        if: steps.check_command.outputs.quest == 'Q1'
         uses: ./.github/actions/issue_manager
         with:
           action: 'create'
