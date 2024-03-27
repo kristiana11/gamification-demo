@@ -137,7 +137,7 @@
         >
           
     <g data-testid="rank-circle"
-          transform="translate(365, 47.5)">
+          transform="translate(365, 30)">
         <circle class="rank-circle-rim" cx="-10" cy="8" r="40" />
         <circle class="rank-circle" cx="-10" cy="8" r="40" />
         <g class="rank-text">
@@ -145,14 +145,14 @@
         <text x="-5" y="3" alignment-baseline="central" dominant-baseline="central" text-anchor="middle" data-testid="level-rank-icon">
           2
         </text>
-      
+        <text x="-2" y="-50" alignment-baseline="middle" dominant-baseline="middle" text-anchor="middle" class="stat bold" fill="#2f80ed">User's Level 🕹️</text>
         </g>
       </g>
     <svg x="0" y="0">
       <g transform="translate(0, 0)">
     <g class="stagger" style="animation-delay: 450ms" transform="translate(25, 0)">
       
-      <text class="stat  bold"  y="12.5">Total Quests Completed:</text>
+      <text class="stat  bold"  y="12.5">Total Quests Completed 🎲:</text>
       <text
         class="stat  bold"
         x="199.01"
@@ -163,7 +163,7 @@
   </g><g transform="translate(0, 25)">
     <g class="stagger" style="animation-delay: 600ms" transform="translate(25, 0)">
       
-      <text class="stat  bold"  y="12.5">Power Ups Used:</text>
+      <text class="stat  bold"  y="12.5">Power Ups Used ✨:</text>
       <text
         class="stat  bold"
         x="199.01"
@@ -174,7 +174,7 @@
   </g><g transform="translate(0, 50)">
     <g class="stagger" style="animation-delay: 750ms" transform="translate(25, 0)">
       
-      <text class="stat  bold"  y="12.5">Community Rating:</text>
+      <text class="stat  bold"  y="12.5">Community Rating 🤝:</text>
       <text
         class="stat  bold"
         x="199.01"
@@ -182,7 +182,35 @@
         data-testid="prs"
       >5</text>
     </g>
+  </g><g transform="translate(0, 75)">
+    <g class="stagger" style="animation-delay: 750ms" transform="translate(25, 0)">
+      
+      <text class="stat  bold"  y="12.5">Total XP 🌟:</text>
+      <text
+        class="stat  bold"
+        x="199.01"
+        y="12.5"
+        data-testid="prs"
+      >200</text>
+    </g>  
+  </g><g transform="translate(0, 100)">
+    <g class="stagger" style="animation-delay: 750ms" transform="translate(25, 0)">
+      
+      <text class="stat  bold"  y="12.5">Progress on Quest Number [5]:</text>
+      <text
+        class="stat  bold"
+        x="199.01"
+        y="12.5"
+        data-testid="prs"
+      >25%</text>
+    </g>  
   </g>
+
+    <!-- Progress bar stuff -->
+    <!-- Fill in color and position -->
+    <rect x="225" y="115" width="100" height="10" fill="#ccc"></rect>
+    <!-- Empty bar color and position -->
+    <rect id="progressBar" x="225" y="115" width="25" height="10" fill="#2f80ed"></rect>
     </svg>
   
         </g>
