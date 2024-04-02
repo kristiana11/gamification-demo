@@ -62,9 +62,9 @@ def is_quest_accepted(user, quest):
         user_data = db.download_user_data(user)
         if user_data['user_data'].get('accepted') is not None:
             if quest in user_data['user_data']['accepted']:
-                return true
+                return True
 
-    return false
+    return False
 
 
 # remove quest
@@ -73,11 +73,13 @@ def remove_quest(user):
         quests = json.load(file)
 
     user_data = db.download_user_data(user)
-    if user_data['user_data']['accepted'] is not None or user_data['user_data']['accepted'] is not {}:
+    try:
         del user_data['user_data']['accepted']
         db.update_data(user_data)
         return 'Quest successfully dropped!'
-    return 'Quest drop failed, please ensure there is a quest to drop.'
+    except KeyError:
+        return 'Quest drop failed, please ensure there is a quest to drop.'
+
 
 
 # complete quest

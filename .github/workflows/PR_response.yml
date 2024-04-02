@@ -1,4 +1,5 @@
-name: Pull Request Checker
+# TODO: need to refactor to respond to Pull requests
+name: Pull Request Response
 on:
   pull_request:
     types:
