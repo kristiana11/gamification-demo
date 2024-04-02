@@ -26,7 +26,7 @@ def generate_svg(data):
 def main():
     # Fetch data from MongoDB or any other source
     data = {
-        "level": 2,
+        "level": 5,
         "quests_completed": 3,
         "power_ups_used": 2,
         "community_rating": 115
