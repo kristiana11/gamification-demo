@@ -3,4 +3,4 @@ kristiana11
 
 
 Testing User Card Stats Here:<br>
-![User Draft Stats](/userCards/draft.svg)
+![User Draft Stats](/userCards/template.svg)
