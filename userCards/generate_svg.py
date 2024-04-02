@@ -29,7 +29,7 @@ def main():
         "level": 2,
         "quests_completed": 3,
         "power_ups_used": 2,
-        "community_rating": 5
+        "community_rating": 115
     }
 
     # Generate SVG file using the fetched data
