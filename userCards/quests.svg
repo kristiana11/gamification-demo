@@ -1,0 +1,22 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Define styles for text elements -->
+  <style>
+    .level-text {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      text-anchor: middle;
+    }
+  </style>
+  
+  <!-- Create level circles and text -->
+  <circle cx="50" cy="50" r="20" fill="#3498db" />
+  <text x="50" y="50" dy=".3em" class="level-text">1</text>
+  
+  <circle cx="150" cy="50" r="20" fill="#3498db" />
+  <text x="150" y="50" dy=".3em" class="level-text">2</text>
+  
+  <circle cx="250" cy="50" r="20" fill="#3498db" />
+  <text x="250" y="50" dy=".3em" class="level-text">3</text>
+  
+  <!-- Add more circles and text for additional levels as needed -->
+</svg>
