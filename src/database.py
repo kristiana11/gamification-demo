@@ -19,10 +19,8 @@ class MongoDB:
         new_user = dict()
         new_user['_id'] = user_name
         new_user['user_data'] = {
-            'user_level': 1,  # Initial user level
-            'total_quests': 0,  # Initial total quests completed
-            'power_ups': 0,  # Initial power-ups used
-            'community_rating': 0  # Initial community rating
+            'xp': 0,
+            'points': 0
         }
         try:
             self.collection.insert_one(new_user)
@@ -37,11 +35,3 @@ class MongoDB:
     def download_user_data(self, user):
         user_document = self.collection.find_one({'_id': user})
         return user_document
-    
-    def get_user_stats(self, user):
-        user_document = self.download_user_data(user)
-        if user_document:
-            return user_document['user_data']
-        else:
-            return None
-
